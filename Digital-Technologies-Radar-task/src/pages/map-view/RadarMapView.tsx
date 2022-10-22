@@ -1,45 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Heading,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  BoxProps,
-  SimpleGrid,
-  Flex,
-  Center,
-  Stack,
-  Text,
-  Image,
-  Badge,
-  GridItem,
-  Grid
-} from '@chakra-ui/react';
-import {
-  BlipType,
-  Radar,
-  RadarQuadrantProps,
-  useDataState,
-  useRadarState
-} from '@undp_sdg_ai_lab/undp-radar';
+import React, {useEffect, useState} from 'react';
+import {Box, BoxProps, Grid, GridItem, Heading} from '@chakra-ui/react';
+import {BlipType, Radar, RadarQuadrantProps, useDataState, useRadarState} from '@undp_sdg_ai_lab/undp-radar';
 
-import { WaitingForRadar } from '../../radar/components';
-import { TechDescription } from '../../radar/tech/TechDescription';
-import { BlipView } from '../../components/views/blip/BlipView';
-import { ScrollableDiv } from '../../components/lists/components/ScrollableDiv';
-import { BlipListMui } from '../../components/lists/components/BlipListMui';
-import { PopOverView } from '../views/PopOverView';
+import {WaitingForRadar} from '../../radar/components';
+import {PopOverView} from '../views/PopOverView';
 
 import '../views/RadarView.scss';
 import './RadarMapView.scss';
-import SearchView from '../search/SearchView';
-import Pagination from '@mui/material/Pagination';
-import SearchResult from '../search/SearchResult';
 import MapView from './MapView';
-import { BlipsPerQuadType } from '../../components/lists/quadrant/QuadrantHorizonList';
+import {BlipsPerQuadType} from '../../components/lists/quadrant/QuadrantHorizonList';
 
 type Props = {
   loading: boolean;
@@ -55,12 +24,12 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
       isFiltered,
       filteredBlips,
       selectedQuadrant,
-      radarData: { quadrants }
+      radarData: {quadrants}
     }
   } = useRadarState();
   const {
     state: {
-      keys: { horizonKey }
+      keys: {horizonKey}
     }
   } = useDataState();
 
@@ -93,7 +62,6 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
     horizons: BlipsPerQuadType;
   };
 
-  // const [bufferBlips, setBufferBlips] = useState<BlipType[]>([]);
   const [displayBlips, setDisplayBlips] = useState<BlipType[]>([]);
   const [quadBlips, setQuadBlips] = useState<QuadType[]>([]);
 
@@ -130,25 +98,25 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
   // END: Map related state
 
   return (
-    <div className='radarMapView'>
-      <div className='radarTitleContainer'>
+    <div className="radarMapView">
+      <div className="radarTitleContainer">
         <Heading
           fontSize={30}
-          color='DarkSlateGray'
-          textAlign='center'
+          color="DarkSlateGray"
+          textAlign="center"
           p={15}
           paddingTop={15}
-          className='radarTitle'
+          className="radarTitle"
         >
           {props.headingLabel
             ? props.headingLabel
             : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
         </Heading>
-        <div className='titleFiller' />
+        <div className="titleFiller"/>
       </div>
       <Grid
-        alignItems='center'
-        templateColumns='repeat(auto-fit, minmax(400px, 1fr))'
+        alignItems="center"
+        templateColumns="repeat(auto-fit, minmax(400px, 1fr))"
         // columns={{ sm: 1, md: 1, lg: 3 }}
         // className='radarContainer'
       >
@@ -166,14 +134,14 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
         {/*  <div className='titleFiller' />*/}
         {/*</GridItem>*/}
         <GridItem
-          className='radarComponentsContainer'
-          colSpan={{ sm: 1, md: 1, lg: 1 }}
+          className="radarComponentsContainer"
+          colSpan={{sm: 1, md: 1, lg: 1}}
         >
-          <Box className='radarComponents sm-padding'>
-            {props.loading && <WaitingForRadar size={radarProps.w + 'px'} />}
+          <Box className="radarComponents sm-padding">
+            {props.loading && <WaitingForRadar size={radarProps.w + 'px'}/>}
             {!props.loading && <Radar {...radarProps} />}
           </Box>
-          <PopOverView />
+          <PopOverView/>
         </GridItem>
 
         {/*<Box className='tabsComponents' {...TabOuterBoxProps}>*/}
@@ -207,10 +175,10 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
 
         <GridItem
           bg={'#fdfdfd'}
-          mb={{ base: 0, md: 50 }}
-          colSpan={{ sm: 1, md: 1, lg: 2 }}
+          mb={{base: 0, md: 50}}
+          colSpan={{sm: 1, md: 1, lg: 2}}
         >
-          <MapView blips={quadBlips} />
+          <MapView blips={quadBlips}/>
         </GridItem>
 
         {/*<GridItem bg={'#fdfdfd'} mb={{ base: 0, md: 50 }} colSpan={{sm: 1, md: 1, lg: 2}}>*/}
