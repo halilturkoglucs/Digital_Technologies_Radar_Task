@@ -9,7 +9,6 @@ export const MapViewLayout: React.FC = ({ children }) => (
   <>
     <FilterTechNavView />
     <ContentView>
-
       {children || <Outlet />}
 
       <PopOverView />

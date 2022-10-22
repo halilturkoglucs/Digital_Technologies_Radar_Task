@@ -5,8 +5,8 @@ import { UNLogo } from './components/UNLogo';
 import { UNDPLogo } from './components/UNDPLogo';
 
 type Props = {
-  headingLabel?: string
-}
+  headingLabel?: string;
+};
 
 export const AppMobileHeader: React.FC<Props> = (props: Props) => {
   return (
@@ -30,7 +30,9 @@ export const AppMobileHeader: React.FC<Props> = (props: Props) => {
           alignSelf={'center'}
           zIndex={10}
         >
-          {props.headingLabel ? props.headingLabel : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
+          {props.headingLabel
+            ? props.headingLabel
+            : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
         </Text>
         <Box my={5} mr={5}>
           <UNDPLogo />

@@ -22,9 +22,9 @@ import { BlipListMui } from '../../components/lists/components/BlipListMui';
 import './RadarView.scss';
 
 type Props = {
-  loading: boolean,
-  headingLabel?: string
-}
+  loading: boolean;
+  headingLabel?: string;
+};
 
 export const RadarView: React.FC<Props> = (props: Props) => {
   const {
@@ -59,7 +59,9 @@ export const RadarView: React.FC<Props> = (props: Props) => {
           paddingTop={15}
           className='radarTitle'
         >
-          {props.headingLabel ? props.headingLabel : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
+          {props.headingLabel
+            ? props.headingLabel
+            : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
         </Heading>
         <div className='titleFiller' />
       </div>

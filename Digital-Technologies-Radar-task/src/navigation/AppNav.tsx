@@ -13,14 +13,18 @@ import { RadarLayout } from '../layouts/RadarLayout';
 import { NotFound404, Radar, Search, About, Volunteers, Home } from '../pages';
 // Views
 import { QuadrantView } from '../pages/views/QuadrantView';
-import { MapView } from '../pages/map-view/MapView';
+import { MapViewLayout } from '../layouts/MapViewLayout';
+import { RadarMap } from '../pages/map-view/RadarMap';
 
 export const NavApp = () => (
   <Flex style={{ height: '100vh', width: '100vw', overflow: 'hidden' }}>
     <AppLeftNav />
     <AppBottomNav />
     <Routes>
-      <Route path={ROUTES.MAP_VIEW} element={<AppMobileHeader headingLabel="NEW MAP VIEW" />}/>
+      <Route
+        path={ROUTES.MAP_VIEW}
+        element={<AppMobileHeader headingLabel='NEW MAP VIEW' />}
+      />
       <Route path='*' element={<AppMobileHeader />} />
     </Routes>
     <MainLayout>
@@ -32,8 +36,11 @@ export const NavApp = () => (
             <Route path={ROUTES.QUADRANT_PARAM} element={<QuadrantView />} />
           </Route>
         </Route>
-        <Route path={ROUTES.MAP_VIEW} element={<MapView />}>
-          <Route path={''} element={<Radar headingLabel='NEW MAP VIEW' />}></Route>
+        <Route path={ROUTES.MAP_VIEW} element={<MapViewLayout />}>
+          <Route
+            path={''}
+            element={<RadarMap headingLabel='NEW MAP VIEW' />}
+          ></Route>
           <Route path={ROUTES.QUADRANT}>
             <Route path={ROUTES.QUADRANT_PARAM} element={<QuadrantView />} />
           </Route>
