@@ -5,7 +5,11 @@ import { useRadarState } from '@undp_sdg_ai_lab/undp-radar';
 import { ROUTES } from '../navigation/routes';
 import { RadarView } from './views';
 
-export const Radar: React.FC = () => {
+type Props = {
+  headingLabel?: string
+}
+
+export const Radar: React.FC<Props> = (props: Props) => {
   const nav = useNavigate();
 
   const [loading, setLoading] = useState(true);
@@ -30,5 +34,5 @@ export const Radar: React.FC = () => {
     if (blips.length > 0) setLoading(false);
   }, [blips]);
 
-  return <RadarView loading={loading} />;
+  return <RadarView loading={loading} headingLabel={props.headingLabel} />;
 };

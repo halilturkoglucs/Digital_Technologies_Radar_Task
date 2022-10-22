@@ -19,7 +19,10 @@ export const NavApp = () => (
   <Flex style={{ height: '100vh', width: '100vw', overflow: 'hidden' }}>
     <AppLeftNav />
     <AppBottomNav />
-    <AppMobileHeader />
+    <Routes>
+      <Route path={ROUTES.MAP_VIEW} element={<AppMobileHeader headingLabel="NEW MAP VIEW" />}/>
+      <Route path='*' element={<AppMobileHeader />} />
+    </Routes>
     <MainLayout>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
@@ -30,7 +33,7 @@ export const NavApp = () => (
           </Route>
         </Route>
         <Route path={ROUTES.MAP_VIEW} element={<MapView />}>
-          <Route path={''} element={<Radar />}></Route>
+          <Route path={''} element={<Radar headingLabel='NEW MAP VIEW' />}></Route>
           <Route path={ROUTES.QUADRANT}>
             <Route path={ROUTES.QUADRANT_PARAM} element={<QuadrantView />} />
           </Route>

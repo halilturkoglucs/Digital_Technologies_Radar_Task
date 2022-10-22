@@ -21,7 +21,12 @@ import { BlipListMui } from '../../components/lists/components/BlipListMui';
 
 import './RadarView.scss';
 
-export const RadarView: React.FC<{ loading: boolean }> = ({ loading }) => {
+type Props = {
+  loading: boolean,
+  headingLabel?: string
+}
+
+export const RadarView: React.FC<Props> = (props: Props) => {
   const {
     state: { techFilters, selectedItem }
   } = useRadarState();
@@ -54,7 +59,7 @@ export const RadarView: React.FC<{ loading: boolean }> = ({ loading }) => {
           paddingTop={15}
           className='radarTitle'
         >
-          Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)
+          {props.headingLabel ? props.headingLabel : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
         </Heading>
         <div className='titleFiller' />
       </div>
@@ -65,8 +70,8 @@ export const RadarView: React.FC<{ loading: boolean }> = ({ loading }) => {
       >
         <Box className='radarComponentsContainer'>
           <Box className='radarComponents'>
-            {loading && <WaitingForRadar size='620px' />}
-            {!loading && <Radar />}
+            {props.loading && <WaitingForRadar size='620px' />}
+            {!props.loading && <Radar />}
           </Box>
           <PopOverView />
         </Box>

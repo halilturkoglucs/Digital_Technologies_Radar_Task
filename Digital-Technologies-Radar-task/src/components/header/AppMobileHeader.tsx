@@ -4,7 +4,11 @@ import { Flex, Box, Text } from '@chakra-ui/react';
 import { UNLogo } from './components/UNLogo';
 import { UNDPLogo } from './components/UNDPLogo';
 
-export const AppMobileHeader: React.FC = () => {
+type Props = {
+  headingLabel?: string
+}
+
+export const AppMobileHeader: React.FC<Props> = (props: Props) => {
   return (
     <Box display={{ base: 'block', md: 'none' }}>
       <Flex
@@ -26,7 +30,7 @@ export const AppMobileHeader: React.FC = () => {
           alignSelf={'center'}
           zIndex={10}
         >
-          Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)
+          {props.headingLabel ? props.headingLabel : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
         </Text>
         <Box my={5} mr={5}>
           <UNDPLogo />
