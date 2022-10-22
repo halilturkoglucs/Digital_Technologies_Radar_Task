@@ -5,6 +5,7 @@ import { FaSearch } from 'react-icons/fa';
 import { BsFillInfoSquareFill } from 'react-icons/bs';
 import { FiTarget } from 'react-icons/fi';
 import { FaHome } from 'react-icons/fa';
+import { SiOpenstreetmap } from 'react-icons/si';
 
 import { MenuItem } from './components/MenuItem';
 import { ROUTES } from '../../navigation/routes';
@@ -26,7 +27,7 @@ export const AppBottomNav: React.FC = () => {
               }}
             >
               <FaHome size={25} color='#3182CE' />
-              <Text color={'blue.500'} fontSize='0.9em' mt='5px'>
+              <Text color={'blue.500'} fontSize='0.8em' mt='5px'>
                 Home
               </Text>
             </Button>
@@ -46,8 +47,28 @@ export const AppBottomNav: React.FC = () => {
               }}
             >
               <FiTarget size={25} color='#3182CE' />
-              <Text color={'blue.500'} fontSize='0.9em' mt='5px'>
+              <Text color={'blue.500'} fontSize='0.8em' mt='5px'>
                 Radar
+              </Text>
+            </Button>
+          </MenuItem>
+        </Box>
+
+        <Box flex={1}>
+          <MenuItem to={ROUTES.MAP_VIEW}>
+            <Button
+                bgColor='gray.50'
+                borderRadius={'0'}
+                w={'100%'}
+                py={8}
+                flexDirection={'column'}
+                _focus={{
+                  outline: 'none'
+                }}
+            >
+              <SiOpenstreetmap size={25} color='#3182CE' />
+              <Text color={'blue.500'} fontSize='0.8em' mt='5px'>
+                Map View
               </Text>
             </Button>
           </MenuItem>
@@ -66,7 +87,7 @@ export const AppBottomNav: React.FC = () => {
               }}
             >
               <BsFillInfoSquareFill size={25} color='#3182CE' />
-              <Text color={'blue.500'} fontSize='0.9em' mt='5px'>
+              <Text color={'blue.500'} fontSize='0.8em' mt='5px'>
                 About
               </Text>
             </Button>
@@ -86,7 +107,7 @@ export const AppBottomNav: React.FC = () => {
               }}
             >
               <FaSearch size={25} color='#3182CE' />
-              <Text color={'blue.500'} fontSize='0.9em' mt='5px'>
+              <Text color={'blue.500'} fontSize='0.8em' mt='5px'>
                 Search
               </Text>
             </Button>

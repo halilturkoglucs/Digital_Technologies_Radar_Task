@@ -71,6 +71,7 @@
     "dist"
   ],
   "dependencies": {
+    "@undp_sdg_ai_lab/undp-radar": "^1.1.0",
     "d3": "^7.1.1",
     "kiss-react-state": "^1.1.1",
     "ts-request-builder": "^0.0.1",

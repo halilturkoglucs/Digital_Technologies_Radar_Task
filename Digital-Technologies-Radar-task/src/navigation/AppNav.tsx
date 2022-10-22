@@ -13,6 +13,7 @@ import { RadarLayout } from '../layouts/RadarLayout';
 import { NotFound404, Radar, Search, About, Volunteers, Home } from '../pages';
 // Views
 import { QuadrantView } from '../pages/views/QuadrantView';
+import {MapView} from '../pages/map-view/MapView';
 
 export const NavApp = () => (
   <Flex style={{ height: '100vh', width: '100vw', overflow: 'hidden' }}>
@@ -28,6 +29,12 @@ export const NavApp = () => (
             <Route path={ROUTES.QUADRANT_PARAM} element={<QuadrantView />} />
           </Route>
         </Route>
+          <Route path={ROUTES.MAP_VIEW} element={<MapView />}>
+              <Route path={''} element={<Radar />}></Route>
+              <Route path={ROUTES.QUADRANT}>
+                  <Route path={ROUTES.QUADRANT_PARAM} element={<QuadrantView />} />
+              </Route>
+          </Route>
         <Route path={ROUTES.ABOUT} element={<About />} />
         <Route path={ROUTES.SEARCH} element={<Search />} />
         <Route path={ROUTES.VOLUNTEERS} element={<Volunteers />} />
