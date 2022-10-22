@@ -6,80 +6,51 @@ import {
   useJsApiLoader
 } from '@react-google-maps/api';
 import { BlipType } from '@undp_sdg_ai_lab/undp-radar/dist/types';
-import { BlipsPerQuadType } from '../../components/lists/quadrant/QuadrantHorizonList';
-
-const containerStyle = {
-  height: '79vh'
-};
 
 const center = {
   lat: 37.916609,
   lng: 0
 };
 
-type QuadType = {
-  qIndex: number;
-  horizons: BlipsPerQuadType;
-};
-
 type MarkerInfoDetail = {
   countryOfImplementation: string;
   numberOfImplementations: number;
+  x: number;
+  y: number;
 };
 
 // used to calculate opacity of the blip markers according to their frequencies per country
-let maxBliksPerCountry = 0;
+let maxBlipsPerCountry = 0;
 
-const mapBlips = (blips: QuadType[]): Map<string, BlipType[]> => {
+const mapBlips = (blips: BlipType[]): Map<string, BlipType[]> => {
   let blipsMap = new Map();
 
-  const mapHorizon = (horizon: any) => {
-    horizon.map((blip: any) => {
-      let countries = blip['Country of Implementation'];
-      countries.map((country: string) => {
-        if (blipsMap.has(country)) {
-          let countryBlips = blipsMap.get(country);
-          countryBlips.push(blip);
-          maxBliksPerCountry = Math.max(
-            maxBliksPerCountry,
-            countryBlips.length
-          );
-        } else {
-          blipsMap.set(country, [blip]);
-          maxBliksPerCountry = Math.max(maxBliksPerCountry, 1);
-        }
-      });
+  blips.forEach((blip: any) => {
+    let countries = blip['Country of Implementation'];
+
+    countries.forEach((country: string) => {
+      if (blipsMap.has(country)) {
+        let countryBlips = blipsMap.get(country);
+        countryBlips.push(blip);
+        maxBlipsPerCountry = Math.max(maxBlipsPerCountry, countryBlips.length);
+      } else {
+        blipsMap.set(country, [blip]);
+        maxBlipsPerCountry = Math.max(maxBlipsPerCountry, 1);
+      }
     });
-  };
-
-  blips.map((blip: QuadType) => {
-    let ideaBlips = blip.horizons['idea'];
-    if (ideaBlips) {
-      mapHorizon(ideaBlips);
-    }
-
-    let prototypeBlips = blip.horizons['prototype'];
-    if (prototypeBlips) {
-      mapHorizon(prototypeBlips);
-    }
-
-    let validationBlips = blip.horizons['validation'];
-    if (validationBlips) {
-      mapHorizon(validationBlips);
-    }
-
-    let productionBlips = blip.horizons['production'];
-    if (productionBlips) {
-      mapHorizon(productionBlips);
-    }
   });
 
   return blipsMap;
 };
 
-const markerColor = '#3a8c92'; // dark turquoise
+const markerColor = '#3a8c92'; // dark greenish turquoise
 
-function MapView(props: { blips: QuadType[] }) {
+type MapViewProps = {
+  blips: BlipType[];
+  containerStyle?: { height: string };
+};
+
+function MapView(props: MapViewProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyDV-1gwRkbo1ylTyx_pzZP0M_RZqz5cV6U'
@@ -89,23 +60,14 @@ function MapView(props: { blips: QuadType[] }) {
   const blipMap = mapBlips(props.blips);
   console.log(blipMap);
 
-  const [map, setMap] = React.useState(null);
   const [markerInfoPosition, setMarkerInfoPosition] = React.useState(null);
   const [markerInfoDetail, setMarkerInfoDetail] =
     React.useState<MarkerInfoDetail>({
       countryOfImplementation: '',
-      numberOfImplementations: 0
+      numberOfImplementations: 0,
+      x: 0,
+      y: 0
     });
-
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
 
   const handleMarkerInfoOpen = (
     markerInfoDetail: any,
@@ -121,19 +83,20 @@ function MapView(props: { blips: QuadType[] }) {
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={containerStyle}
+      mapContainerStyle={
+        props.containerStyle ? props.containerStyle : { height: '79vh' }
+      }
       center={center}
       options={{
         minZoom: 2,
-        zoom: 2
+        zoom: 2,
+        disableDefaultUI: true
       }}
-      // onLoad={onLoad}
-      onUnmount={onUnmount}
     >
       {Array.from(blipMap.entries()).map((value, key) => {
         let numOfBlipsOfTheCountry = value[1].length;
         // divide max number of blips per country so that you get a rate that can be used as opacity
-        let opacity = numOfBlipsOfTheCountry / maxBliksPerCountry;
+        let opacity = numOfBlipsOfTheCountry / maxBlipsPerCountry;
 
         // put information about the project country into the marker info window
         // info: same for the blips of a country
@@ -161,9 +124,12 @@ function MapView(props: { blips: QuadType[] }) {
               }}
               position={currMarkerPosition}
               onClick={() =>
-                handleMarkerInfoOpen(markerInfoDetail, currMarkerPosition)
+                handleMarkerInfoOpen(
+                  { ...markerInfoDetail, x: blip.x, y: blip.y },
+                  currMarkerPosition
+                )
               }
-            ></Marker>
+            />
           );
         });
       })}
@@ -178,6 +144,9 @@ function MapView(props: { blips: QuadType[] }) {
             <p>{markerInfoDetail.countryOfImplementation}</p>
             <h1>Number of Implementations</h1>
             <p>{markerInfoDetail.numberOfImplementations}</p>
+            <h1>Coordinates:</h1>
+            <p>x: {markerInfoDetail.x}</p>
+            <p>y: {markerInfoDetail.y}</p>
           </div>
         </InfoWindow>
       )}

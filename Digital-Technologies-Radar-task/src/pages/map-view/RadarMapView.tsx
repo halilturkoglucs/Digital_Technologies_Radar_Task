@@ -1,14 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {Box, BoxProps, Grid, GridItem, Heading} from '@chakra-ui/react';
-import {BlipType, Radar, RadarQuadrantProps, useDataState, useRadarState} from '@undp_sdg_ai_lab/undp-radar';
+import React, { useEffect, useState } from 'react';
+import { Box, Grid, GridItem, Heading } from '@chakra-ui/react';
+import {
+  BlipType,
+  Radar,
+  RadarQuadrantProps,
+  useRadarState
+} from '@undp_sdg_ai_lab/undp-radar';
 
-import {WaitingForRadar} from '../../radar/components';
-import {PopOverView} from '../views/PopOverView';
+import { WaitingForRadar } from '../../radar/components';
+import { PopOverView } from '../views/PopOverView';
 
 import '../views/RadarView.scss';
 import './RadarMapView.scss';
 import MapView from './MapView';
-import {BlipsPerQuadType} from '../../components/lists/quadrant/QuadrantHorizonList';
 
 type Props = {
   loading: boolean;
@@ -17,53 +21,15 @@ type Props = {
 
 export const RadarMapView: React.FC<Props> = (props: Props) => {
   const {
-    state: {
-      techFilters,
-      selectedItem,
-      blips,
-      isFiltered,
-      filteredBlips,
-      selectedQuadrant,
-      radarData: {quadrants}
-    }
+    state: { techFilters, blips, isFiltered, filteredBlips }
   } = useRadarState();
-  const {
-    state: {
-      keys: {horizonKey}
-    }
-  } = useDataState();
-
-  const [tabIndex, setTabIndex] = React.useState(0);
-
-  useEffect(() => {
-    if (techFilters && techFilters.length > 0) {
-      setTabIndex(1);
-    }
-  }, [techFilters]);
-
-  useEffect(() => {
-    if (selectedItem) {
-      setTabIndex(2);
-    }
-  }, [selectedItem]);
-
-  const tabsChangeHandler = (ind: number) => {
-    setTabIndex(ind);
-  };
 
   const radarProps: RadarQuadrantProps = {
     w: 320,
     h: 320
   };
 
-  // Map related state
-  type QuadType = {
-    qIndex: number;
-    horizons: BlipsPerQuadType;
-  };
-
   const [displayBlips, setDisplayBlips] = useState<BlipType[]>([]);
-  const [quadBlips, setQuadBlips] = useState<QuadType[]>([]);
 
   useEffect(() => {
     let blipsToUse = blips;
@@ -74,49 +40,44 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
   }, [blips, filteredBlips]);
 
   useEffect(() => {
-    var quads = new Array<QuadType>();
-    for (let i = 0; i < quadrants.length; i++) {
-      var q: QuadType = {
-        qIndex: i,
-        horizons: {}
-      };
-      quads.push(q);
+    if (techFilters.length > 0) {
+      let filteredBlipsAccordingToTechFilters = displayBlips.filter((blip) => {
+        // blip.Technology and the techFilters sent by Radar state is different
+        // e.g. blip.Technology=['Geographical Information Systems']
+        // whereas techFilters=['geographical-information-systems']
+        // as a workaround, try to convert blip.Technology to techFilter format
+        let blipTechnology = blip.Technology.map((tf) => {
+          return tf.toLowerCase().replaceAll(' ', '-');
+        });
+        return blipTechnology.some((t) => techFilters.includes(t));
+      });
+      console.log(filteredBlipsAccordingToTechFilters);
+      setDisplayBlips(filteredBlipsAccordingToTechFilters);
     }
-    // Two pass, one for quadrant blips and second to
-    displayBlips.forEach((blip) => {
-      // get quad
-      let q = quads[blip.quadrantIndex];
-      let h = q.horizons;
-      let hName: string = blip[horizonKey];
-      if (h[hName] === undefined) {
-        h[hName] = new Array<BlipType>();
-      }
-      h[hName].push(blip);
-      setQuadBlips(quads);
-    });
-  }, [displayBlips]);
+  }, [techFilters]);
+
   // END: Map related state
 
   return (
-    <div className="radarMapView">
-      <div className="radarTitleContainer">
+    <div className='radarMapView'>
+      <div className='radarTitleContainer'>
         <Heading
           fontSize={30}
-          color="DarkSlateGray"
-          textAlign="center"
+          color='DarkSlateGray'
+          textAlign='center'
           p={15}
           paddingTop={15}
-          className="radarTitle"
+          className='radarTitle'
         >
           {props.headingLabel
             ? props.headingLabel
             : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}
         </Heading>
-        <div className="titleFiller"/>
+        <div className='titleFiller' />
       </div>
       <Grid
-        alignItems="center"
-        templateColumns="repeat(auto-fit, minmax(400px, 1fr))"
+        alignItems='center'
+        templateColumns='repeat(auto-fit, minmax(400px, 1fr))'
         // columns={{ sm: 1, md: 1, lg: 3 }}
         // className='radarContainer'
       >
@@ -134,14 +95,14 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
         {/*  <div className='titleFiller' />*/}
         {/*</GridItem>*/}
         <GridItem
-          className="radarComponentsContainer"
-          colSpan={{sm: 1, md: 1, lg: 1}}
+          className='radarComponentsContainer'
+          colSpan={{ sm: 1, md: 1, lg: 1 }}
         >
-          <Box className="radarComponents sm-padding">
-            {props.loading && <WaitingForRadar size={radarProps.w + 'px'}/>}
+          <Box className='radarComponents sm-padding'>
+            {props.loading && <WaitingForRadar size={radarProps.w + 'px'} />}
             {!props.loading && <Radar {...radarProps} />}
           </Box>
-          <PopOverView/>
+          <PopOverView />
         </GridItem>
 
         {/*<Box className='tabsComponents' {...TabOuterBoxProps}>*/}
@@ -175,10 +136,10 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
 
         <GridItem
           bg={'#fdfdfd'}
-          mb={{base: 0, md: 50}}
-          colSpan={{sm: 1, md: 1, lg: 2}}
+          mb={{ base: 0, md: 50 }}
+          colSpan={{ sm: 1, md: 1, lg: 2 }}
         >
-          <MapView blips={quadBlips}/>
+          <MapView blips={displayBlips} />
         </GridItem>
 
         {/*<GridItem bg={'#fdfdfd'} mb={{ base: 0, md: 50 }} colSpan={{sm: 1, md: 1, lg: 2}}>*/}
@@ -189,17 +150,4 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
       </Grid>
     </div>
   );
-};
-
-const TabOuterBoxProps: BoxProps = {
-  borderColor: 'gray.200',
-  borderWidth: '2px',
-  borderRadius: 'md',
-  overflow: 'hidden',
-  mt: '110',
-  mb: '5',
-  mr: '10',
-  p: '5',
-  maxWidth: '500px',
-  height: '800px'
 };

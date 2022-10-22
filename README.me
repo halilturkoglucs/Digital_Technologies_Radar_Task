@@ -30,6 +30,9 @@ Any other map could have been used.
 11. Added info window for each marker. When you click on any of the markers, it shows which country it belongs to as well as the total number of
 implementations for that country.
 
+12. Added QuadrantMapView so that when we are in the new map view and user clicks a quadrant, this new components shows a map filtered by the
+values of the quadrant (technology filter included)
+
 
 ## Available Scripts
 
@@ -47,5 +50,16 @@ https://halilturkoglucs.github.io/
 2. For the info windows of the markers on the map we show some metadata about implementations. 
 However, please be aware that the blip locations, as far as I can see, differ from the country of implementation. 
 Thus, they may appear somewhere else than their country of implementation according to the radar data.
-To overcome this, maybe we could be using static country lat&longs for this if we wanted to avoid it?
+To overcome this, maybe we could be using static country lat&longs for this if we wanted to avoid it or manually fix the lat&long data of CSV.
+e.g. there is a project of Sudan at coordinates x: 44.47583058885326, y: -39.80846570525004 but this is nowhere near Sudan.
+
+3. I've realised that blip's Technology field and the techFilters sent by Radar state is different
+    e.g. blip.Technology=['Geographical Information Systems'] 
+    whereas techFilters=['geographical-information-systems']. These may use Ids instead
+	
+4. The new component I added (QuadrantMapView) shows a map next to the quadrant. However, when we click the back arrow, it navigates back to 
+the radar view. To resolve this, I could a props to QuadrantRadar component in the library that can parametrize the page the back arrow button points to.
+
+5. I realised a bug: the filter component on the top right of the page resets Parameters filters when you click on it after selecting a parameter filter
+This may be fixed on the filter component
 

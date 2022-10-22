@@ -15,6 +15,7 @@ import { NotFound404, Radar, Search, About, Volunteers, Home } from '../pages';
 import { QuadrantView } from '../pages/views/QuadrantView';
 import { MapViewLayout } from '../layouts/MapViewLayout';
 import { RadarMap } from '../pages/map-view/RadarMap';
+import { QuadrantMapView } from '../pages/map-view/QuadrantMapView';
 
 export const NavApp = () => (
   <Flex style={{ height: '100vh', width: '100vw', overflow: 'hidden' }}>
@@ -42,7 +43,7 @@ export const NavApp = () => (
             element={<RadarMap headingLabel='NEW MAP VIEW' />}
           ></Route>
           <Route path={ROUTES.QUADRANT}>
-            <Route path={ROUTES.QUADRANT_PARAM} element={<QuadrantView />} />
+            <Route path={ROUTES.QUADRANT_PARAM} element={<QuadrantMapView />} />
           </Route>
         </Route>
         <Route path={ROUTES.ABOUT} element={<About />} />
