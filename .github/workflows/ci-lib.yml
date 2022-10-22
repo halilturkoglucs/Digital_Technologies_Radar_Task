@@ -1,0 +1,36 @@
+name: CI Tests for the Library Task
+
+defaults:
+  run:
+    working-directory: Digital_Technologies_Radar_Lib_task
+
+on:
+  push:
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # strategy:
+    #   matrix:
+    #     node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: yarn install
+        run: |
+          yarn install
+      - name: yarn test
+        run: |
+          yarn test
+        env:
+          NODE_ENV: development
+          CI: true
