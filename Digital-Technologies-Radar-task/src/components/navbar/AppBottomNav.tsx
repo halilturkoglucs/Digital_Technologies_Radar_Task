@@ -57,14 +57,14 @@ export const AppBottomNav: React.FC = () => {
         <Box flex={1}>
           <MenuItem to={ROUTES.MAP_VIEW}>
             <Button
-                bgColor='gray.50'
-                borderRadius={'0'}
-                w={'100%'}
-                py={8}
-                flexDirection={'column'}
-                _focus={{
-                  outline: 'none'
-                }}
+              bgColor='gray.50'
+              borderRadius={'0'}
+              w={'100%'}
+              py={8}
+              flexDirection={'column'}
+              _focus={{
+                outline: 'none'
+              }}
             >
               <SiOpenstreetmap size={25} color='#3182CE' />
               <Text color={'blue.500'} fontSize='0.8em' mt='5px'>

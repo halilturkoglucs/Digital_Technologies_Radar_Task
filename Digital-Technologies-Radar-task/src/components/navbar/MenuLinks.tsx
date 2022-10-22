@@ -49,12 +49,12 @@ export const MenuLinks: React.FC<Props> = ({ isOpen }) => (
 
         <MenuItem to={ROUTES.MAP_VIEW}>
           <Button
-              rounded='md'
-              colorScheme='blue'
-              py={7}
-              px={1}
-              width={'100%'}
-              bg='#0062ac'
+            rounded='md'
+            colorScheme='blue'
+            py={7}
+            px={1}
+            width={'100%'}
+            bg='#0062ac'
           >
             <SiOpenstreetmap size={30} />
           </Button>
