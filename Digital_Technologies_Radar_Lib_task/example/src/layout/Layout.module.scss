@@ -1,0 +1,37 @@
+.layout {
+  // display: flex;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+  .layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .left {
+    flex: 1;
+  }
+
+  .center {
+    flex: 2;
+  }
+
+  .right {
+    flex: 2;
+  }
+
+  .double-column {
+    flex: 2;
+  }
+}

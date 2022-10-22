@@ -1,0 +1,17 @@
+.radar-button {
+  color: black;
+  border: none;
+  // background-color: white;
+  cursor: pointer;
+  border-radius: 45px;
+  width: 45px;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: white;
+  padding-right: 6px;
+  padding-bottom: 6px;
+
+  &:hover {
+    background-color: whitesmoke;
+  }
+}
