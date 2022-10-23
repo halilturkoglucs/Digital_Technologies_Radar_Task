@@ -43,7 +43,7 @@ describe('MapView tests', () => {
 
     // ASSERT
     const mapViewDiv = document.querySelectorAll('div')[0];
-    expect(mapViewDiv).toBeEmpty();
+    expect(mapViewDiv).toBeEmptyDOMElement();
   });
 
   test('MapView loads without blips', async () => {

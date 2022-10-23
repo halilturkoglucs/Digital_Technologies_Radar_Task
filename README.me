@@ -37,6 +37,9 @@ values of the quadrant (technology filter included)
 
 14. Added tests for MapView
 
+15. Moved Google Maps API Key to .env.local which prevents it from being committed to Github.
+Github workflows still work since API key is in Github secrets now.
+
 
 ## Available Scripts
 
@@ -49,6 +52,9 @@ https://halilturkoglucs.github.io/
 
 NOTE: When you filter data sometimes the filtered data is somewhere up or down the current map view, please pan/scroll 
 on the map to find filtered blips
+
+NOTE 2: If you need to run it locally, please provide REACT_APP_GOOGLE_MAPS_API_KEY in .env.local so that the map can load
+If no API key is handy, please contact me so that I can provide you
 
 # Further Steps
 
