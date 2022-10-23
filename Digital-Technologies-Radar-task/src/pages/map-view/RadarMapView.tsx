@@ -35,7 +35,7 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
 
   const mapViewContainerStyle = {
     width: matchSmScreen ? '89vw' : '57vw',
-    height: matchSmScreen ? '63vw' : '123vh'
+    height: matchSmScreen ? '63vw' : '99vh'
   };
 
   const [displayBlips, setDisplayBlips] = useState<BlipType[]>([]);

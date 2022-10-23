@@ -30,7 +30,7 @@ describe('MapView tests', () => {
 
     const mapViewContainerStyle = {
       width: matchSmScreen ? '89vw' : '57vw',
-      height: matchSmScreen ? '63vw' : '123vh'
+      height: matchSmScreen ? '63vw' : '99vh'
     };
 
     render(
@@ -52,7 +52,7 @@ describe('MapView tests', () => {
 
     const mapViewContainerStyle = {
       width: matchSmScreen ? '89vw' : '57vw',
-      height: matchSmScreen ? '63vw' : '123vh'
+      height: matchSmScreen ? '63vw' : '99vh'
     };
 
     jest.spyOn(ReactGoogleMapsApi, 'useJsApiLoader').mockReturnValue({

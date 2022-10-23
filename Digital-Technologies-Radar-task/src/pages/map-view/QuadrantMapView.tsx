@@ -30,7 +30,7 @@ export const QuadrantMapView: React.FC = () => {
   const matchSmScreen = useMediaQuery('(max-width:576px)');
 
   const mapViewContainerStyle = {
-    height: matchSmScreen ? '30vh' : '119vh',
+    height: matchSmScreen ? '30vh' : '99vh',
     width: matchSmScreen ? '90vw' : '52.3vw'
   };
 
