@@ -27,6 +27,8 @@ jobs:
           yarn install
 
       - name: build
+        env:
+          REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: |
           yarn build
 

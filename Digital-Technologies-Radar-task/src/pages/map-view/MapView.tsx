@@ -53,7 +53,7 @@ type MapViewProps = {
 function MapView(props: MapViewProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyDV-1gwRkbo1ylTyx_pzZP0M_RZqz5cV6U'
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string
   });
 
   // console.log(props.blips);
