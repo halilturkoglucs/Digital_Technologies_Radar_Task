@@ -16,14 +16,19 @@ import { AiOutlineSetting } from 'react-icons/ai';
 import { HowToPopup } from '../../components/radar/HowToPopup';
 
 import './FilterDrawer.scss';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const FilterDrawer: React.FC = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const matchSmScreen = useMediaQuery('(max-width:576px)');
+
   return (
     <>
       <Box
         className={`option-button ${
-          useLocation().pathname.includes('quadrant') && 'quadrant-filter'
+          (useLocation().pathname.includes('quadrant') || matchSmScreen) &&
+          'quadrant-filter'
         }`}
       >
         <Box overflowY='auto' width='0px'>

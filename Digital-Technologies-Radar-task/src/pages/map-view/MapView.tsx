@@ -47,7 +47,7 @@ const markerColor = '#3a8c92'; // dark greenish turquoise
 
 type MapViewProps = {
   blips: BlipType[];
-  containerStyle?: { height: string };
+  containerStyle?: { height?: string; width?: string };
 };
 
 function MapView(props: MapViewProps) {
@@ -56,9 +56,9 @@ function MapView(props: MapViewProps) {
     googleMapsApiKey: 'AIzaSyDV-1gwRkbo1ylTyx_pzZP0M_RZqz5cV6U'
   });
 
-  console.log(props.blips);
+  // console.log(props.blips);
   const blipMap = mapBlips(props.blips);
-  console.log(blipMap);
+  // console.log(blipMap);
 
   const [markerInfoPosition, setMarkerInfoPosition] = React.useState(null);
   const [markerInfoDetail, setMarkerInfoDetail] =

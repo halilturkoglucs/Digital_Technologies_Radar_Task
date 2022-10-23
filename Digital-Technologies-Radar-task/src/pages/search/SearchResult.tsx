@@ -20,11 +20,12 @@ import { BaseCSVType } from '@undp_sdg_ai_lab/undp-radar';
 
 interface SearchResultProps {
   filteredContent: BaseCSVType[];
+  pageSize?: number;
 }
 
 export const SearchResult: React.FC<SearchResultProps> = (props) => {
   const [page, setPage] = useState(1);
-  const PER_PAGE = 15;
+  const PER_PAGE = props.pageSize ? props.pageSize : 15;
   const count = Math.ceil(props.filteredContent.length / PER_PAGE);
   const paginatedData = usePagination(props.filteredContent, PER_PAGE);
 

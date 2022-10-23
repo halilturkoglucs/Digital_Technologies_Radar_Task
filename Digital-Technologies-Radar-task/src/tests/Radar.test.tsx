@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { AppBottomNav } from '../components';
 import { BrowserRouter } from 'react-router-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import { Radar } from '../pages';

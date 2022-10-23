@@ -33,6 +33,10 @@ implementations for that country.
 12. Added QuadrantMapView so that when we are in the new map view and user clicks a quadrant, this new components shows a map filtered by the
 values of the quadrant (technology filter included)
 
+13. Added 'quadrant-filter' class for mobile viewports too so that the new map view can have the responsive filter on mobile
+
+14. Added tests for MapView
+
 
 ## Available Scripts
 
@@ -42,6 +46,9 @@ The app can be built/run as the same way described in the relevant README.me fil
 
 Using the github workflow in the project, I integrated my repo with github pages, thus the result can be seen at:
 https://halilturkoglucs.github.io/
+
+NOTE: When you filter data sometimes the filtered data is somewhere up or down the current map view, please pan/scroll 
+on the map to find filtered blips
 
 # Further Steps
 
@@ -62,4 +69,7 @@ the radar view. To resolve this, I could a props to QuadrantRadar component in t
 
 5. I realised a bug: the filter component on the top right of the page resets Parameters filters when you click on it after selecting a parameter filter
 This may be fixed on the filter component
+
+6. Reused SearchResult component for the task's last step (slider). However, added pageSize props to SearchResult so that I can set desired page
+size which makes it seem more like a slider rather than a search results page.
 

@@ -8,6 +8,9 @@ import {
 import { BackButton } from '../../radar/components';
 import MapView from './MapView';
 import './QuadrantMapView.scss';
+import SearchResult from '../search/SearchResult';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { Grid, GridItem } from '@chakra-ui/react';
 
 export const QuadrantMapView: React.FC = () => {
   const {
@@ -24,8 +27,11 @@ export const QuadrantMapView: React.FC = () => {
   const [bufferBlips, setBufferBlips] = useState<BlipType[]>([]);
   const [quadIndex, setQuadIndex] = useState<number | false>(false);
 
+  const matchSmScreen = useMediaQuery('(max-width:576px)');
+
   const mapViewContainerStyle = {
-    height: '119vh'
+    height: matchSmScreen ? '30vh' : '119vh',
+    width: matchSmScreen ? '90vw' : '52.3vw'
   };
 
   useEffect(() => {
@@ -59,22 +65,34 @@ export const QuadrantMapView: React.FC = () => {
   }, [selectedQuadrant]);
 
   return (
-    <div
-      className='quadrantView'
-      style={{ display: 'flex', flex: 1, padding: 2 }}
-    >
-      <BackButton to='RADAR' />
-      <div className='quadrantRadar' style={{ flex: 1 }}>
-        <QuadrantRadar />
-      </div>
-      {(quadIndex === 0 ||
-        quadIndex === 1 ||
-        quadIndex === 2 ||
-        quadIndex === 3) && (
-        <div className='horizontalMap' style={{ flex: '2' }}>
-          <MapView blips={bufferBlips} containerStyle={mapViewContainerStyle} />
+    <Grid templateColumns='fit-content(97%)'>
+      <GridItem
+        className='quadrantView'
+        style={{ display: 'flex', flex: 1, padding: 2 }}
+        colSpan={{ sm: 1, md: 1, lg: 1 }}
+      >
+        <BackButton to='RADAR' />
+        <div className='quadrantRadar' style={{ flex: 1 }}>
+          <QuadrantRadar />
         </div>
-      )}
-    </div>
+        {(quadIndex === 0 ||
+          quadIndex === 1 ||
+          quadIndex === 2 ||
+          quadIndex === 3) && (
+          <div
+            className={matchSmScreen ? '' : 'horizontalMap'}
+            style={{ flex: '2' }}
+          >
+            <MapView
+              blips={bufferBlips}
+              containerStyle={mapViewContainerStyle}
+            />
+          </div>
+        )}
+      </GridItem>
+      <GridItem colSpan={{ sm: 1, md: 1, lg: 1 }} pb={{ base: 67, md: 9 }}>
+        <SearchResult filteredContent={bufferBlips} pageSize={4} />
+      </GridItem>
+    </Grid>
   );
 };

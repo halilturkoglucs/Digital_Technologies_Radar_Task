@@ -13,6 +13,8 @@ import { PopOverView } from '../views/PopOverView';
 import '../views/RadarView.scss';
 import './RadarMapView.scss';
 import MapView from './MapView';
+import SearchResult from '../search/SearchResult';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 type Props = {
   loading: boolean;
@@ -27,6 +29,13 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
   const radarProps: RadarQuadrantProps = {
     w: 320,
     h: 320
+  };
+
+  const matchSmScreen = useMediaQuery('(max-width:576px)');
+
+  const mapViewContainerStyle = {
+    width: matchSmScreen ? '89vw' : '57vw',
+    height: matchSmScreen ? '63vw' : '123vh'
   };
 
   const [displayBlips, setDisplayBlips] = useState<BlipType[]>([]);
@@ -56,8 +65,6 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
     }
   }, [techFilters]);
 
-  // END: Map related state
-
   return (
     <div className='radarMapView'>
       <div className='radarTitleContainer'>
@@ -78,22 +85,7 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
       <Grid
         alignItems='center'
         templateColumns='repeat(auto-fit, minmax(400px, 1fr))'
-        // columns={{ sm: 1, md: 1, lg: 3 }}
-        // className='radarContainer'
       >
-        {/*<GridItem colSpan={{sm: 1, md: 1, lg: 3}}>*/}
-        {/*  <Heading*/}
-        {/*    fontSize={30}*/}
-        {/*    color='DarkSlateGray'*/}
-        {/*    textAlign='center'*/}
-        {/*    p={15}*/}
-        {/*    paddingTop={15}*/}
-        {/*    className='radarTitle'*/}
-        {/*  >*/}
-        {/*    {props.headingLabel ? props.headingLabel : 'Frontier Technology Radar for Disaster Risk Reduction (FTR4DRR)'}*/}
-        {/*  </Heading>*/}
-        {/*  <div className='titleFiller' />*/}
-        {/*</GridItem>*/}
         <GridItem
           className='radarComponentsContainer'
           colSpan={{ sm: 1, md: 1, lg: 1 }}
@@ -105,48 +97,25 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
           <PopOverView />
         </GridItem>
 
-        {/*<Box className='tabsComponents' {...TabOuterBoxProps}>*/}
-        {/*  <Tabs*/}
-        {/*    variant='enclosed'*/}
-        {/*    index={tabIndex}*/}
-        {/*    onChange={tabsChangeHandler}*/}
-        {/*  >*/}
-        {/*    <TabList>*/}
-        {/*      <Tab as='h5'>Stages</Tab>*/}
-        {/*      <Tab as='h5'>Technologies</Tab>*/}
-        {/*      <Tab as='h5'>Project</Tab>*/}
-        {/*    </TabList>*/}
-        {/*    <TabPanels overflowY='auto'>*/}
-        {/*      <TabPanel overflowY='auto'>*/}
-        {/*        <ScrollableDiv maxHeight={720}>*/}
-        {/*          <BlipListMui />*/}
-        {/*        </ScrollableDiv>*/}
-        {/*      </TabPanel>*/}
-        {/*      <TabPanel overflowY='auto'>*/}
-        {/*        <TechDescription />*/}
-        {/*      </TabPanel>*/}
-        {/*      <TabPanel overflowY='auto'>*/}
-        {/*        <ScrollableDiv maxHeight={720}>*/}
-        {/*          <BlipView />*/}
-        {/*        </ScrollableDiv>*/}
-        {/*      </TabPanel>*/}
-        {/*    </TabPanels>*/}
-        {/*  </Tabs>*/}
-        {/*</Box>*/}
-
         <GridItem
           bg={'#fdfdfd'}
           mb={{ base: 0, md: 50 }}
           colSpan={{ sm: 1, md: 1, lg: 2 }}
         >
-          <MapView blips={displayBlips} />
+          <MapView
+            blips={displayBlips}
+            containerStyle={mapViewContainerStyle}
+          />
         </GridItem>
 
-        {/*<GridItem bg={'#fdfdfd'} mb={{ base: 0, md: 50 }} colSpan={{sm: 1, md: 1, lg: 2}}>*/}
-        {/*  {filteredTech.length !== 0 && (*/}
-        {/*    <SearchResult filteredContent={filteredTech} />*/}
-        {/*  )}*/}
-        {/*</GridItem>*/}
+        <GridItem
+          bg={'#fdfdfd'}
+          mr={{ base: 10, md: 50 }}
+          mb={{ base: 67, md: 9 }}
+          colSpan={{ sm: 1, md: 1, lg: 3 }}
+        >
+          <SearchResult filteredContent={displayBlips} pageSize={4} />
+        </GridItem>
       </Grid>
     </div>
   );
