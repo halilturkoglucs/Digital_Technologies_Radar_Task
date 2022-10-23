@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.11f623b8.css",
+    "main.css": "/static/css/main.54e2e2fc.css",
     "main.js": "/static/js/main.f4904074.js",
     "static/js/787.7a2ae1f3.chunk.js": "/static/js/787.7a2ae1f3.chunk.js",
     "static/media/background2.jpg": "/static/media/background2.f23affceb6e02c142256.jpg",
@@ -10,12 +10,12 @@
     "static/media/SDG_BLACK_logo.png": "/static/media/SDG_BLACK_logo.cff2188904f1b1acc816.png",
     "static/media/SDG_WHITE_logo.png": "/static/media/SDG_WHITE_logo.e32f6cd201d0a6f5f298.png",
     "index.html": "/index.html",
-    "main.11f623b8.css.map": "/static/css/main.11f623b8.css.map",
+    "main.54e2e2fc.css.map": "/static/css/main.54e2e2fc.css.map",
     "main.f4904074.js.map": "/static/js/main.f4904074.js.map",
     "787.7a2ae1f3.chunk.js.map": "/static/js/787.7a2ae1f3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.11f623b8.css",
+    "static/css/main.54e2e2fc.css",
     "static/js/main.f4904074.js"
   ]
 }
