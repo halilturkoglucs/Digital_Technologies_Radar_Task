@@ -12,7 +12,6 @@ import { PopOverView } from '../views/PopOverView';
 
 import '../views/RadarView.scss';
 import './RadarMapView.scss';
-import MapView from './MapView';
 import SearchResult from '../search/SearchResult';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AmChartsMapView from './AmChartsMapView';

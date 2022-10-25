@@ -71,7 +71,7 @@ const getCountryFrequencies = (
   let countryFrequencies: CountryFrequency[] = [];
   let maxFrequency = 1; // Used in determining the proportionate size of blips on the map
 
-  Array.from(blipMap.entries()).map((value, key) => {
+  Array.from(blipMap.entries()).forEach((value, key) => {
     let countryName = value[0];
     let countryId = 'UNKNOWN'; // if AmCharts geo data does not have a country code for this then default it to UNKNOWN
 
