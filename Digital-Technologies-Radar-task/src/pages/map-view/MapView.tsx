@@ -31,15 +31,18 @@ const mapBlips = (blips: BlipType[]): Map<string, BlipType[]> => {
     countries
       .filter((country: string) => country !== 'Global')
       .forEach((country: string) => {
-      if (blipsMap.has(country)) {
-        let countryBlips = blipsMap.get(country);
-        countryBlips.push(blip);
-        maxBlipsPerCountry = Math.max(maxBlipsPerCountry, countryBlips.length);
-      } else {
-        blipsMap.set(country, [blip]);
-        maxBlipsPerCountry = Math.max(maxBlipsPerCountry, 1);
-      }
-    });
+        if (blipsMap.has(country)) {
+          let countryBlips = blipsMap.get(country);
+          countryBlips.push(blip);
+          maxBlipsPerCountry = Math.max(
+            maxBlipsPerCountry,
+            countryBlips.length
+          );
+        } else {
+          blipsMap.set(country, [blip]);
+          maxBlipsPerCountry = Math.max(maxBlipsPerCountry, 1);
+        }
+      });
   });
 
   return blipsMap;
