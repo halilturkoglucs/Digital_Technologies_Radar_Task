@@ -73,7 +73,6 @@ WARNING: Not all country names have a match with AmCharts geolocation, thus such
 of the map on top of each other.
 
 
-
 ## Available Scripts
 
 The app can be built/run as the same way described in the relevant README.me files of the subprojects.
@@ -86,7 +85,8 @@ https://halilturkoglucs.github.io/
 NOTE: When you filter data sometimes the filtered data is somewhere up or down the current map view, please pan/scroll 
 on the map to find filtered blips
 
-NOTE 2: If you need to run it locally, please provide REACT_APP_GOOGLE_MAPS_API_KEY in .env.local so that the map can load
+NOTE 2 - only necessary if using Google Maps - DEPRECATED (the project uses AmCharts instead):
+If you need to run it locally, please provide REACT_APP_GOOGLE_MAPS_API_KEY in .env.local so that the map can load
 If no API key is handy, please contact me so that I can provide you
 
 # Further Steps
