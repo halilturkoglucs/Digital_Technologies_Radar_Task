@@ -23,22 +23,55 @@ Any other map could have been used.
 
 `"@undp_sdg_ai_lab/undp-radar": "1.1.0"`
 
-10. Used google maps react component in MapView component:
+### Two Paths for the Map Implementation
+
+I've initially implemented using Google maps (MapView.tsx). However, after asking question about the task, I decided to use a ready map
+like this: https://www.amcharts.com/demos/map-bubbles/ (please see AmCharts section)
+
+#### Google Maps - DEPRECATED
+
+1. Used google maps react component in MapView component:
 - iterate through the Radar state blips and map them to the country hashmap with their frequencies
-- according to the frequency, set marker's transparency: bolder meaning more, more pale meaning less
+- according to the frequency, set marker's size: bigger meaning more frequent. However, here I added a min, max constraint
+so that blips are clearly visible on the map; not too small, not too big
 
-11. Added info window for each marker. When you click on any of the markers, it shows which country it belongs to as well as the total number of
-implementations for that country.
+2. Added info window for each marker. When you click on any of the markers, it shows which country it belongs to as well as the total number of
+implementations for that country according to the filter (excluding Global).
 
-12. Added QuadrantMapView so that when we are in the new map view and user clicks a quadrant, this new components shows a map filtered by the
+3. Added QuadrantMapView so that when we are in the new map view and user clicks a quadrant, this new components shows a map filtered by the
 values of the quadrant (technology filter included)
 
-13. Added 'quadrant-filter' class for mobile viewports too so that the new map view can have the responsive filter on mobile
+4. Added 'quadrant-filter' class for mobile viewports too so that the new map view can have the responsive filter on mobile
 
-14. Added tests for MapView
+5. Added tests for MapView
 
-15. Moved Google Maps API Key to .env.local which prevents it from being committed to Github.
+6. Moved Google Maps API Key to .env.local which prevents it from being committed to Github.
 Github workflows still work since API key is in Github secrets now.
+
+NOTE: You can still switch to this by replacing AmChartsMapView component in RadarMapView.tsx with MapView component
+
+#### AmCharts Map
+
+1. Install AmCharts npm dependencies:
+
+`
+npm install @amcharts/amcharts5
+npm install @amcharts/amcharts5-geodata
+npm install @amcharts/amcharts5-fonts
+`
+
+2. Use AmCharts map library to form the frequency map
+
+3. Use useLayoutEffect effect as explained by AmCharts documentation to update the map according to the blips
+that we want to show
+
+According to the frequency, set marker's size: bigger meaning more frequent. However, here I added a lower bound constraint
+so that blips are clearly visible on the map; not too small, not too big
+
+
+WARNING: Not all country names have a match with AmCharts geolocation, thus such countries appear somewhere in the middle
+of the map on top of each other.
+
 
 
 ## Available Scripts

@@ -6,11 +6,11 @@ import {
 } from '@undp_sdg_ai_lab/undp-radar';
 
 import { BackButton } from '../../radar/components';
-import MapView from './MapView';
 import './QuadrantMapView.scss';
 import SearchResult from '../search/SearchResult';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Grid, GridItem } from '@chakra-ui/react';
+import AmChartsMapView from './AmChartsMapView';
 
 export const QuadrantMapView: React.FC = () => {
   const {
@@ -83,7 +83,7 @@ export const QuadrantMapView: React.FC = () => {
             className={matchSmScreen ? '' : 'horizontalMap'}
             style={{ flex: '2' }}
           >
-            <MapView
+            <AmChartsMapView
               blips={bufferBlips}
               containerStyle={mapViewContainerStyle}
             />

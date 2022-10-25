@@ -15,6 +15,7 @@ import './RadarMapView.scss';
 import MapView from './MapView';
 import SearchResult from '../search/SearchResult';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import AmChartsMapView from './AmChartsMapView';
 
 type Props = {
   loading: boolean;
@@ -102,7 +103,7 @@ export const RadarMapView: React.FC<Props> = (props: Props) => {
           mb={{ base: 0, md: 50 }}
           colSpan={{ sm: 1, md: 1, lg: 2 }}
         >
-          <MapView
+          <AmChartsMapView
             blips={displayBlips}
             containerStyle={mapViewContainerStyle}
           />
