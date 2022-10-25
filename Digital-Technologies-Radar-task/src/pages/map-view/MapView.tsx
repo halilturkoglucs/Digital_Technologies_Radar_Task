@@ -28,7 +28,9 @@ const mapBlips = (blips: BlipType[]): Map<string, BlipType[]> => {
   blips.forEach((blip: any) => {
     let countries = blip['Country of Implementation'];
 
-    countries.forEach((country: string) => {
+    countries
+      .filter((country: string) => country !== 'Global')
+      .forEach((country: string) => {
       if (blipsMap.has(country)) {
         let countryBlips = blipsMap.get(country);
         countryBlips.push(blip);
@@ -56,9 +58,9 @@ function MapView(props: MapViewProps) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string
   });
 
-  // console.log(props.blips);
+  console.log(props.blips);
   const blipMap = mapBlips(props.blips);
-  // console.log(blipMap);
+  console.log(blipMap);
 
   const [markerInfoPosition, setMarkerInfoPosition] = React.useState(null);
   const [markerInfoDetail, setMarkerInfoDetail] =
@@ -88,15 +90,15 @@ function MapView(props: MapViewProps) {
       }
       center={center}
       options={{
-        minZoom: 2,
-        zoom: 2,
+        minZoom: 1,
+        zoom: 1,
         disableDefaultUI: true
       }}
     >
       {Array.from(blipMap.entries()).map((value, key) => {
         let numOfBlipsOfTheCountry = value[1].length;
         // divide max number of blips per country so that you get a rate that can be used as opacity
-        let opacity = numOfBlipsOfTheCountry / maxBlipsPerCountry;
+        let density = numOfBlipsOfTheCountry / maxBlipsPerCountry;
 
         // put information about the project country into the marker info window
         // info: same for the blips of a country
@@ -116,11 +118,11 @@ function MapView(props: MapViewProps) {
               key={key + '-' + blip.x + ',' + blip.y}
               icon={{
                 path: google.maps.SymbolPath.CIRCLE,
-                scale: 5,
+                scale: 10 * density,
                 fillColor: markerColor,
                 strokeColor: markerColor,
                 strokeWeight: 1,
-                fillOpacity: opacity
+                fillOpacity: 1
               }}
               position={currMarkerPosition}
               onClick={() =>
