@@ -49,6 +49,7 @@ const mapBlips = (blips: BlipType[]): Map<string, BlipType[]> => {
 };
 
 const markerColor = '#3a8c92'; // dark greenish turquoise
+const markerStrokeColor = 'green';
 
 type MapViewProps = {
   blips: BlipType[];
@@ -94,7 +95,7 @@ function MapView(props: MapViewProps) {
       center={center}
       options={{
         minZoom: 1,
-        zoom: 1,
+        zoom: 2,
         disableDefaultUI: true
       }}
     >
@@ -121,9 +122,9 @@ function MapView(props: MapViewProps) {
               key={key + '-' + blip.x + ',' + blip.y}
               icon={{
                 path: google.maps.SymbolPath.CIRCLE,
-                scale: 10 * density,
+                scale: Math.max(5, 13 * density),
                 fillColor: markerColor,
-                strokeColor: markerColor,
+                strokeColor: markerStrokeColor,
                 strokeWeight: 1,
                 fillOpacity: 1
               }}
